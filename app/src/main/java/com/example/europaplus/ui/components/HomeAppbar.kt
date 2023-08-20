@@ -19,6 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,14 +35,48 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.europaplus.R
+import com.example.europaplus.ui.navigation.BottomNavRoutes
 import com.example.europaplus.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeAppbar(
+    bottomNavController: NavController,
     onExpandClick: () -> Unit
 ) {
+
+    var appBarTitle by remember {
+        mutableStateOf("")
+    }
+
+    var appBarSubtitle by remember {
+        mutableStateOf("")
+    }
+
+    val currentDestination =
+        bottomNavController.currentBackStackEntryAsState().value?.destination?.route
+
+    when (
+        currentDestination
+    ) {
+        BottomNavRoutes.ChartsScreen.Destination.route -> {
+            appBarTitle = "ЕвроХит Топ 40"
+            appBarSubtitle = "Лучшие 40 песен недели"
+        }
+
+        BottomNavRoutes.NewsScreen.Destination.route -> {
+            appBarSubtitle = "Самые свежие и громкие новости"
+        }
+
+        else -> {
+            appBarTitle = "Europa Plus"
+            appBarSubtitle = "Нажмите чтобы посмотреть все станции"
+        }
+    }
+
     TopAppBar(
         modifier = Modifier.padding(vertical = 6.dp),
         colors = TopAppBarDefaults.topAppBarColors(
@@ -61,27 +99,33 @@ fun HomeAppbar(
                 Row(
                     Modifier.height(26.dp),
                 ) {
-                    Icon(
-                        modifier = Modifier.padding(end = 12.dp),
-                        imageVector = ImageVector.vectorResource(R.drawable.chevron_down),
-                        contentDescription = null,
-                        tint = Color.LightGray
-                    )
+
+                    if (currentDestination == BottomNavRoutes.ListenScreen.Destination.route) {
+                        Icon(
+                            modifier = Modifier.padding(end = 12.dp),
+                            imageVector = ImageVector.vectorResource(R.drawable.chevron_down),
+                            contentDescription = null,
+                            tint = Color.LightGray
+                        )
+                    }
                     Text(
                         textAlign = TextAlign.Center,
-                        text = "Europa Plus",
+                        text = appBarTitle,
                         lineHeight = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Icon(
-                        modifier = Modifier.padding(start = 12.dp),
-                        imageVector = ImageVector.vectorResource(R.drawable.chevron_down),
-                        contentDescription = null,
-                        tint = Color.LightGray
-                    )
+                    if (currentDestination == BottomNavRoutes.ListenScreen.Destination.route) {
+                        Icon(
+                            modifier = Modifier.padding(start = 12.dp),
+                            imageVector = ImageVector.vectorResource(R.drawable.chevron_down),
+                            contentDescription = null,
+                            tint = Color.LightGray
+                        )
+                    }
+
                 }
                 Text(
-                    text = stringResource(id = R.string.appbar_subtitle),
+                    text = appBarSubtitle,
                     fontSize = 12.sp,
                     lineHeight = 12.sp,
                     color = AppTheme.colors.textSecondary

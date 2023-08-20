@@ -1,5 +1,7 @@
 package com.example.europaplus.ui.navigation
 
+import androidx.compose.ui.res.stringResource
+
 sealed class BottomNavRoutes(val route: String){
     object NewsScreen : BottomNavRoutes("news"){
         object Destination: BottomNavRoutes("news_screen")

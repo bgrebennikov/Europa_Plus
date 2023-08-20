@@ -25,6 +25,7 @@ import androidx.core.view.WindowCompat
 @Immutable
 data class AppThemeColors(
     val selectedItem: Color,
+    val selectedItemText: Color,
     val unselectedItem: Color,
     val text: Color,
     val textSecondary: Color,
@@ -32,6 +33,8 @@ data class AppThemeColors(
     val shadowLow: Color,
     val divider: Color,
     val controlBtnBackground: Color,
+    val backgroundSecondary: Color,
+    val tagsColor: Color,
 )
 
 object AppTheme {
@@ -43,13 +46,16 @@ object AppTheme {
 val LocalAppThemeColors = staticCompositionLocalOf {
     AppThemeColors(
         selectedItem = Blue,
+        selectedItemText = LightBlue,
         unselectedItem = LightGray,
         text = Color.Black,
         shadow = Color.LightGray,
         shadowLow = Color(0xfff1f1f1),
         divider = LightGray100,
         controlBtnBackground = Red,
-        textSecondary = Color(0xFF898989)
+        textSecondary = Color(0xFF898989),
+        backgroundSecondary = LightGray100,
+        tagsColor = PurpleGrey80
     )
 }
 
@@ -87,24 +93,30 @@ fun EuropaPlusTheme(
 
     val appThemeColorsLight = AppThemeColors(
         selectedItem = Blue,
+        selectedItemText = LightBlue,
         unselectedItem = LightGray,
         text = Color.Black,
         shadow = Color.LightGray,
         shadowLow = Color(0xfff1f1f1),
         divider = LightGray100,
         controlBtnBackground = Red,
-        textSecondary = Color(0xFF898989)
+        textSecondary = Color(0xFF898989),
+        backgroundSecondary = Color(0xFFF5F5F5),
+        tagsColor = LightGray200
     )
 
     val appThemeColorsDark = AppThemeColors(
         selectedItem = LightBlue,
+        selectedItemText = LightBlue,
         unselectedItem = Color.LightGray,
         text = Color.White,
         shadow = Color.Transparent,
         shadowLow = Color.Transparent,
         divider = DarkGray,
         controlBtnBackground = Color.Red,
-        textSecondary = Color(0xFF525252)
+        textSecondary = Color(0xFF525252),
+        backgroundSecondary = PurpleGrey40,
+        tagsColor = PurpleGrey80
     )
 
     val colorScheme = when {

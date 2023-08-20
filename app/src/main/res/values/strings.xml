@@ -2,7 +2,7 @@
     <string name="app_name">Europa Plus</string>
     <string name="appbar_subtitle">Нажмите чтобы посмотреть все станции</string>
 
-    <string name="news_title">Слушать</string>
+    <string name="news_title">Новости</string>
     <string name="charts_title">Чарты</string>
     <string name="listen_title">Слушать</string>
     <string name="podcasts_title">Подкасты</string>
